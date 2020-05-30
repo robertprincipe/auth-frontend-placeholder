@@ -8,7 +8,8 @@ const routes: Routes = [
   {path: 'admin', canActivate: [AuthGuard], loadChildren: () => import('./pages/backoffice/backoffice.module')
   .then(m => m.BackofficeModule)},
   {path: '', canActivate: [NoAuthGuard],loadChildren: () => import('./auth/auth.module')
-  .then(m => m.AuthModule)}
+  .then(m => m.AuthModule)},
+  {path: '**', pathMatch: 'full', redirectTo: ''}
 ];
 
 @NgModule({

@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,18 @@ export class AuthService {
     sessionStorage.removeItem('token');
     localStorage.removeItem('token');
     this.router.navigateByUrl('/login');
+  }
+
+  get currentUser() {
+    let User: any;
+    if (localStorage.getItem('token') || sessionStorage.getItem('token')) {
+      const token = localStorage.getItem('token') ? localStorage.getItem('token') : sessionStorage.getItem('token')
+      if (token) {
+        User = jwtDecode(token)
+      }
+    }
+
+    return User;
   }
 
 }

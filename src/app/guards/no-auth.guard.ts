@@ -9,6 +9,7 @@ export class NoAuthGuard implements CanActivate {
   canActivate(): boolean {
       if (localStorage.getItem('token') || sessionStorage.getItem('token')) {
         this.router.navigateByUrl('/admin');
+        return false;
       }
 
     return true;
