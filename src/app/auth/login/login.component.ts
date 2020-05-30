@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthForm } from '../classes/auth-form.class';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,18 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends AuthForm implements OnInit {
+
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
 
   constructor(protected fb: FormBuilder, private authService: AuthService) {
     super(fb);
@@ -34,9 +47,18 @@ export class LoginComponent extends AuthForm implements OnInit {
   onSubmit() {
     if (this.isValidForm) {
       this.authService.login(this.formGroup.value).subscribe(resp => {
-        console.log(resp)
-      }, err => {
-        console.log(err)
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: resp.message,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }, error => {
+        this.Toast.fire({
+          icon: 'error',
+          title: error.errors[0]
+        })
       })
     }
   }

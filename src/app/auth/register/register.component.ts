@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { controlMustMatch, checkEmail } from '../../shared/utils/custom-validator';
 import { AuthForm } from '../classes/auth-form.class';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +11,18 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent extends AuthForm implements OnInit {
+
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
 
   constructor(protected fb: FormBuilder, private authService: AuthService) {
     super(fb);
@@ -56,10 +69,19 @@ export class RegisterComponent extends AuthForm implements OnInit {
 
   onSubmit(): void {
     if (this.isValidForm) {
-      this.authService.register(this.formGroup.value).subscribe(resp => {
-        console.log(resp)
+      this.authService.register(this.formGroup.value).subscribe((resp: any) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: resp.message,
+          showConfirmButton: false,
+          timer: 1500
+        })
       }, error => {
-        console.log(error)
+        this.Toast.fire({
+          icon: 'error',
+          title: error.errors[0]
+        })
       })
     }
   }

@@ -25,9 +25,9 @@ export function checkEmail(authService: AuthService) {
 
     return authService.checkEmail(value).pipe(
       map((resp: any) => {
-      if (!resp.resp) {
+      if (resp.message === 'notAvailable') {
         return { notAvailable: true };
-      } else {
+      } else if (resp.message === 'available') {
         return null;
       }
     }));
