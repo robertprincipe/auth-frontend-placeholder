@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import Swal from 'sweetalert2';
+import { AlertService } from 'src/app/shared/services/alert.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 })
 export class SidebarComponent implements OnInit {
   user: any;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.user = this.authService.currentUser
@@ -17,41 +17,7 @@ export class SidebarComponent implements OnInit {
 
 
   logout(): void {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
-
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-        this.authService.logout();
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    })
+    this.alertService.fire('Logout', 'Sure you want to go out', () => {this.authService.logout()});
   }
 
 }
