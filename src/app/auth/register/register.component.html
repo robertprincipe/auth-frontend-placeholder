@@ -1,0 +1,91 @@
+<div class="hold-transition register-page">
+  <div class="register-box">
+    <div class="register-logo d-flex align-items-center justify-content-center">
+      <img src="assets/logo/shield.svg" alt="shield" class="w-25 img-fluid">
+      <a><b>Auth</b> Placeholder</a>
+    </div>
+
+    <div class="card">
+      <div class="card-body register-card-body">
+        <p class="login-box-msg">Register a new membership</p>
+
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Full name" appInputError formControlName="fullname">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+            <div class="invalid-feedback">
+              <app-field-error [control]="formGroup.get('fullname')" [errors]="formErrorMessages.fullname"></app-field-error>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Nickname" appInputError formControlName="nickname">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+            <div class="invalid-feedback">
+              <app-field-error [control]="formGroup.get('nickname')" [errors]="formErrorMessages.nickname"></app-field-error>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Email" appInputError formControlName="email">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+            <div class="invalid-feedback">
+              <app-field-error [control]="formGroup.get('email')" [errors]="formErrorMessages.email"></app-field-error>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" appInputError formControlName="password" autocomplete>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+            <div class="invalid-feedback">
+              <app-field-error [control]="formGroup.get('password')" [errors]="formErrorMessages.password"></app-field-error>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Retype password" appInputError formControlName="confirmPassword" autocomplete>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+            <div class="invalid-feedback">
+              <app-field-error [control]="formGroup.get('confirmPassword')" [errors]="formErrorMessages.confirmPassword"></app-field-error>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" formControlName="terms" appInputError id="terms" class="custom-control-input">
+                <label for="terms" class="custom-control-label">I agree to the <a href="#">terms</a></label>
+                <div class="invalid-feedback">
+                  <app-field-error [control]="formGroup.get('terms')" [errors]="formErrorMessages.terms"></app-field-error>
+                </div>
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+
+        <a routerLink="/login" class="text-center">I already have a membership</a>
+      </div>
+      <!-- /.form-box -->
+    </div><!-- /.card -->
+  </div>
+</div>

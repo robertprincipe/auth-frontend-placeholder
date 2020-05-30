@@ -1,0 +1,60 @@
+<div class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo d-flex align-items-center justify-content-center">
+      <img src="assets/logo/shield.svg" alt="shield" class="w-25 img-fluid">
+      <a><b>Auth</b> Placeholder</a>
+    </div>
+
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Sign in to start your session</p>
+
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+          <div class="input-group mb-3">
+            <input type="email" formControlName="email" appInputError class="form-control" placeholder="Email">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+            <div class="invalid-feedback">
+              <app-field-error [control]="formGroup.get('email')" [errors]="formErrorMessages.email"></app-field-error>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" formControlName="password" appInputError class="form-control" placeholder="Password" autocomplete>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+            <div class="invalid-feedback">
+              <app-field-error [control]="formGroup.get('password')" [errors]="formErrorMessages.password"></app-field-error>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="remember" class="custom-control-input" formControlName="remember">
+                <label for="remember" class="custom-control-label">Remember Me</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </div>
+
+          </div>
+        </form>
+
+        <!-- <p class="mb-1">
+          <a href="forgot-password.html">I forgot my password</a>
+        </p> -->
+        <p class="mb-0">
+          <a routerLink="/register" class="text-center">Register a new membership</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
