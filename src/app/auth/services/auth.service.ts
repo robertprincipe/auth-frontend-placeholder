@@ -48,12 +48,8 @@ export class AuthService {
 
   isAuthenticated(): Observable<boolean> {
 
-    this.http.get(`${this.url}/verify-token`).subscribe(resp => {
-      if (resp) {
+    this.http.get(`${this.url}/verify-token`).subscribe(() => {
         this.status.next(true);
-      } else {
-        this.status.next(false);
-      }
     }, () => {
       this.status.next(false);
     });
