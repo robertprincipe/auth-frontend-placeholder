@@ -52,6 +52,8 @@ export class AuthService {
         this.status.next(true);
     }, () => {
       this.status.next(false);
+      sessionStorage.removeItem('token');
+      localStorage.removeItem('token');
     });
 
     return this.status;

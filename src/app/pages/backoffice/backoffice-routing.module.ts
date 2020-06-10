@@ -8,7 +8,7 @@ import { AdminGuard } from 'src/app/guards/admin.guard';
 
 const routes: Routes = [
   {path: '', component: BackofficeComponent, children: [
-    {path: 'dashboard', component: DashboardComponent},
+    {path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard'}},
     {path: 'only-admin', canActivate: [AdminGuard],component: OnlyAdminComponent},
     {path: '', pathMatch: 'full', redirectTo: 'dashboard'}
   ]},
